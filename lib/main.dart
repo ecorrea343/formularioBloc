@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 
+import 'package:formulariobloc/src/pages/home_page.dart';
 import 'package:formulariobloc/src/pages/login_page.dart';
  
 void main() {
@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       initialRoute: 'login',
       routes: {
         'login' : (BuildContext context) => LoginPage(),
+        'home'  : (BuildContext context) => HomePage(),
       },
     );
   }

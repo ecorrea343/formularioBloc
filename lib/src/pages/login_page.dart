@@ -5,10 +5,8 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Bienvenido: '),
-        //iconTheme: Icon(Icons.phone),
-      ),
+      
+      body: Text(''),
       
     );
   }
