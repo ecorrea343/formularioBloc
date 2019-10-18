@@ -23,7 +23,10 @@ class MyApp extends StatelessWidget {
             routes: {
               'login' : (BuildContext context) => LoginPage(),
               'home'  : (BuildContext context) => HomePage(),
-        }
+        },
+        theme: ThemeData(
+          primaryColor: Colors.red
+        ),
       )
     );  
   }
