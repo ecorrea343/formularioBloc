@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Formulario',
-            initialRoute: 'producto',
+            initialRoute: 'home',
             routes: {
               'login'     : (BuildContext context) => LoginPage(),
               'home'      : (BuildContext context) => HomePage(),

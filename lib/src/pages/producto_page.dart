@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:formulariobloc/src/models/producto_model.dart';
+import 'package:formulariobloc/src/providers/productos_providers.dart';
 import 'package:formulariobloc/src/utils/utils.dart' as utils;
 
 class ProductoPage extends StatefulWidget {
@@ -10,11 +11,16 @@ class ProductoPage extends StatefulWidget {
 
 class _ProductoPageState extends State<ProductoPage> {
   final formKey = GlobalKey<FormState>();
+  final productosProvider = new ProductosProvider();
 
   ProductoModel producto = new ProductoModel();
 
   @override
   Widget build(BuildContext context) {
+
+    final ProductoModel prodArg = ModalRoute.of(context).settings.arguments;
+    if (prodArg != null) { producto = prodArg; }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('PRODUCTO'),
@@ -128,6 +134,10 @@ class _ProductoPageState extends State<ProductoPage> {
       print(producto.titulo);
       print(producto.disponible);
       print(producto.valor);
+
+      if( producto.id == null )
+      {  productosProvider.crearProducto(producto); }
+  else{  productosProvider.editarProducto(producto);}
 
     // Aca estamos diciendo si esta todo ok .
     // if (formKey.currentState.validate()) {
