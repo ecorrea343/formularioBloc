@@ -31,26 +31,6 @@ class Validators {
 
   );
 
-  final validarCampoVaciosP = StreamTransformer<String,String>.fromHandlers(
-
-    handleData: (password , sink ){
-
-      if(password.length == null){
-        sink.addError( 'Ingrese Contraseña Porfavor' );
-      }
-    }
-
-  );
-
-  final validarCampoVaciosE = StreamTransformer<String,String>.fromHandlers(
-
-    handleData: (email , sink ){
-
-      if(email.length == null){
-        sink.addError( 'Ingrese Email Porfavor' );
-      }
-    }
-
-  );
+  
 
 }
