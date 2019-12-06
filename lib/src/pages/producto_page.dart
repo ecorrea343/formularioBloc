@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:formulariobloc/src/models/producto_model.dart';
 import 'package:formulariobloc/src/providers/productos_providers.dart';
 import 'package:formulariobloc/src/utils/utils.dart' as utils;
+import 'package:image_picker/image_picker.dart';
 
 class ProductoPage extends StatefulWidget {
 
@@ -10,13 +13,14 @@ class ProductoPage extends StatefulWidget {
 }
 
 class _ProductoPageState extends State<ProductoPage> {
-  final formKey = GlobalKey<FormState>();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  final formKey           = GlobalKey<FormState>();
+  final scaffoldKey       = GlobalKey<ScaffoldState>();
   final productosProvider = new ProductosProvider();
 
   ProductoModel producto = new ProductoModel();
 
   bool _guardando = false;
+  File foto;
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +35,11 @@ class _ProductoPageState extends State<ProductoPage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.photo_size_select_actual),
-            onPressed: (){},
+            onPressed:_seleccionarFoto,
           ),
           IconButton(
             icon: Icon(Icons.camera_alt),
-            onPressed: (){},
+            onPressed:_tomarFoto,
           )
         ],
       ),
@@ -46,6 +50,7 @@ class _ProductoPageState extends State<ProductoPage> {
             key: formKey,
             child: Column(
               children: <Widget>[
+                _mostrarFoto(),
                 _crearNombre(),
                 _crearPrecio(),
                 _crearDisponible(),
@@ -138,22 +143,61 @@ class _ProductoPageState extends State<ProductoPage> {
 
       if( producto.id == null )
       {  productosProvider.crearProducto(producto); }
-  else{  productosProvider.editarProducto(producto);}
+    else{  productosProvider.editarProducto(producto);}
 
-        setState(() {  _guardando = false;});
+       // setState(() {  _guardando = false;});
         mostrarSnackBar('Registro Guardado');
-
+        Navigator.pop(context);
     // Aca estamos diciendo si esta todo ok .
     // if (formKey.currentState.validate()) {
       
     // } 
 
    }
-   void mostrarSnackBar(String mensaje){
+  void mostrarSnackBar(String mensaje){
+
      final snackbar = SnackBar(
-       content: Text(mensaje),
-       duration: Duration(milliseconds: 1500),
+       content      : Text(mensaje),
+       duration     : Duration(milliseconds: 1500),
      );
      scaffoldKey.currentState.showSnackBar(snackbar);
-   }
+  }
+
+  Widget _mostrarFoto(){
+
+    if (producto.fotoUrl != null) {
+      //tengo que hacer esto
+      return Container();
+    }else{
+
+      return Image(
+        image: AssetImage(foto?.path ?? 'assets/no-image.png'),
+        height: 300.0,
+        fit: BoxFit.cover,
+      );
+    }
+
+  }
+  _seleccionarFoto()async{
+
+    foto = await ImagePicker.pickImage(
+      source: ImageSource.gallery
+    );
+    
+    if (foto!= null) {
+      //liempieza
+    } 
+    setState(() {});
+
+  }
+  _tomarFoto(){
+    ImagePicker.pickImage(
+      source: ImageSource.camera
+    );
+
+    if (foto!= null) {
+      //liempieza
+    } 
+    setState(() {});
+  }
 }
