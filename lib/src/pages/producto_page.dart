@@ -17,7 +17,7 @@ class _ProductoPageState extends State<ProductoPage> {
   final scaffoldKey       = GlobalKey<ScaffoldState>();
   final productosProvider = new ProductosProvider();
 
-  ProductoModel producto = new ProductoModel();
+  ProductoModel producto  = new ProductoModel();
 
   bool _guardando = false;
   File foto;
@@ -35,11 +35,11 @@ class _ProductoPageState extends State<ProductoPage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.photo_size_select_actual),
-            onPressed:_seleccionarFoto,
+            onPressed:_procesarImagen(ImageSource.gallery),
           ),
           IconButton(
             icon: Icon(Icons.camera_alt),
-            onPressed:_tomarFoto,
+            onPressed:_procesarImagen(ImageSource.camera),
           )
         ],
       ),
@@ -79,9 +79,7 @@ class _ProductoPageState extends State<ProductoPage> {
           return null;
         }
       },
-
     );
-
   }
 
    Widget _crearPrecio(){
@@ -120,8 +118,8 @@ class _ProductoPageState extends State<ProductoPage> {
        textColor: Colors.white,
        onPressed: (_guardando)? null :_submit,
      );
-
    }
+
    Widget _crearDisponible(){
 
      return SwitchListTile(
@@ -131,7 +129,6 @@ class _ProductoPageState extends State<ProductoPage> {
          producto.disponible = value;
        }),
      );
-
    }
 
    void _submit(){
@@ -152,8 +149,8 @@ class _ProductoPageState extends State<ProductoPage> {
     // if (formKey.currentState.validate()) {
       
     // } 
-
    }
+
   void mostrarSnackBar(String mensaje){
 
      final snackbar = SnackBar(
@@ -176,23 +173,12 @@ class _ProductoPageState extends State<ProductoPage> {
         fit: BoxFit.cover,
       );
     }
-
   }
-  _seleccionarFoto()async{
+
+  _procesarImagen(ImageSource tipo)async{
 
     foto = await ImagePicker.pickImage(
-      source: ImageSource.gallery
-    );
-    
-    if (foto!= null) {
-      //liempieza
-    } 
-    setState(() {});
-
-  }
-  _tomarFoto(){
-    ImagePicker.pickImage(
-      source: ImageSource.camera
+      source: tipo
     );
 
     if (foto!= null) {
